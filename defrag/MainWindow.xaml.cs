@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace defrag
 {
@@ -100,6 +101,10 @@ namespace defrag
 						{
 							((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
 						}
+
+						int progressValue=randomNumbersGenerator.Next (0, 101);
+						this.progressBar.Value=progressValue;
+						this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
 					});
 					Thread.Sleep (500);
 				}
