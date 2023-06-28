@@ -22,6 +22,11 @@ namespace defrag
 		private Color [] availableColors=new Color [5];
 
 		/// <summary>
+		/// boolean used to pause the defragmentation
+		/// </summary>
+		private bool isPaused=false;
+
+		/// <summary>
 		/// constructor
 		/// </summary>
 		public MainWindow ()
@@ -96,14 +101,17 @@ namespace defrag
 				{
 					Application.Current.Dispatcher.Invoke (() =>
 					{
-						for (int i=0; i<this.topPane.Children.Count; i++)
+						if (this.isPaused==false)
 						{
-							((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
-						}
+							for (int i=0; i<this.topPane.Children.Count; i++)
+							{
+								((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+							}
 
-						int progressValue=progressValuesGenerator.Next (0, 101);
-						this.progressBar.Value=progressValue;
-						this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
+							int progressValue=progressValuesGenerator.Next (0, 101);
+							this.progressBar.Value=progressValue;
+							this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
+						}
 					});
 					Thread.Sleep (500);
 				}
@@ -132,6 +140,29 @@ namespace defrag
 		{
 			Random generatorForPickingAColor=new Random ();
 			block.Fill=new SolidColorBrush (this.availableColors [generatorForPickingAColor.Next (0, this.availableColors.Length)]);
+		}
+
+		/// <summary>
+		/// fired when the "pauseButton" button is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the object that fires the event
+		/// </param>
+		/// <param name="e">
+		/// some event-related data
+		/// </param>
+		private void pauseButton_Click (object sender, RoutedEventArgs e)
+		{
+			if (this.isPaused==false)
+			{
+				this.isPaused=true;
+				this.pauseButton.Content="Reprendre";
+			}
+			else
+			{
+				this.isPaused=false;
+				this.pauseButton.Content="Pause";
+			}
 		}
 	}
 }
