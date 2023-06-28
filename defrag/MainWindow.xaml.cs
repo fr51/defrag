@@ -27,6 +27,11 @@ namespace defrag
 		private bool isPaused=false;
 
 		/// <summary>
+		/// boolean used to halt the defragmentation
+		/// </summary>
+		private bool isHalted=false;
+
+		/// <summary>
 		/// constructor
 		/// </summary>
 		public MainWindow ()
@@ -99,21 +104,28 @@ namespace defrag
 			{
 				while (true)
 				{
-					Application.Current.Dispatcher.Invoke (() =>
+					if (this.isHalted==false)
 					{
-						if (this.isPaused==false)
+						Application.Current.Dispatcher.Invoke (() =>
 						{
-							for (int i=0; i<this.topPane.Children.Count; i++)
+							if (this.isPaused==false)
 							{
-								((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
-							}
+								for (int i=0; i<this.topPane.Children.Count; i++)
+								{
+									((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+								}
 
-							int progressValue=progressValuesGenerator.Next (0, 101);
-							this.progressBar.Value=progressValue;
-							this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
-						}
-					});
-					Thread.Sleep (500);
+								int progressValue=progressValuesGenerator.Next (0, 101);
+								this.progressBar.Value=progressValue;
+								this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
+							}
+						});
+						Thread.Sleep (500);
+					}
+					else
+					{
+						return;
+					}
 				}
 			});
 		}
@@ -163,6 +175,23 @@ namespace defrag
 				this.isPaused=false;
 				this.pauseButton.Content="Pause";
 			}
+		}
+
+		/// <summary>
+		/// fired when the "stopButton" button is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the object that fires the event
+		/// </param>
+		/// <param name="e">
+		/// some event-related data
+		/// </param>
+		private void stopButton_Click (object sender, RoutedEventArgs e)
+		{
+			this.pauseButton.IsEnabled=false;
+			this.progressLabel.Content=this.progressLabel.Content.ToString ().Replace ("en cours", "arrêtée");
+			this.isHalted=true;
+			this.stopButton.IsEnabled=false;
 		}
 	}
 }
