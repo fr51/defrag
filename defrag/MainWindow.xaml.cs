@@ -124,6 +124,12 @@ namespace defrag
 			this.availableColors [4]=Color.FromRgb (0, 0, 0);
 		}
 
+		/// <summary>
+		/// fills a block with a random color (among the available ones)
+		/// </summary>
+		/// <param name="block">
+		/// the block to fill
+		/// </param>
 		private void fillBlock (Rectangle block)
 		{
 			Random generatorForPickingAColor=new Random ();
