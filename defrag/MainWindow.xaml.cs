@@ -64,8 +64,6 @@ namespace defrag
 		/// </summary>
 		private void populateTopPane ()
 		{
-			Random randomNumbersGenerator=new Random ();
-
 			for (int i=0; i<this.topPane.Height/25; i++) //showing 20 lines
 			{
 				for (int j=0; j<(this.topPane.Width/15.38)-1.0d; j++) //showing (nearly) 52 columns
