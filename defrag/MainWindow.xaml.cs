@@ -90,6 +90,7 @@ namespace defrag
 		private async void startDefragmentation ()
 		{
 			Random randomNumbersGenerator=new Random ();
+			Random progressValuesGenerator=new Random ();
 
 			await Task.Run (() =>
 			{
@@ -102,7 +103,7 @@ namespace defrag
 							((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
 						}
 
-						int progressValue=randomNumbersGenerator.Next (0, 101);
+						int progressValue=progressValuesGenerator.Next (0, 101);
 						this.progressBar.Value=progressValue;
 						this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
 					});
