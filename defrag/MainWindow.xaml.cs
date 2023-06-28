@@ -193,5 +193,28 @@ namespace defrag
 			this.isHalted=true;
 			this.stopButton.IsEnabled=false;
 		}
+
+		/// <summary>
+		/// fired when the "detailsButton" button is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the object that fires the event
+		/// </param>
+		/// <param name="e">
+		/// some event-related data
+		/// </param>
+		private void detailsButton_Click (object sender, RoutedEventArgs e)
+		{
+			if (this.progressLabel.IsVisible)
+			{
+				this.progressLabel.Visibility=Visibility.Hidden;
+				this.progressBar.Visibility=Visibility.Hidden;
+			}
+			else
+			{
+				this.progressLabel.Visibility=Visibility.Visible;
+				this.progressBar.Visibility=Visibility.Visible;
+			}
+		}
 	}
 }

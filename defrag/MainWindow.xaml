@@ -7,6 +7,6 @@
 		<Button x:Name="stopButton" Height="20" Width="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,35" Content="Arrêt" Click="stopButton_Click"/>
 		<Button x:Name="pauseButton" Height="{Binding Height, ElementName=stopButton}" Width="{Binding Width, ElementName=stopButton}" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=stopButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=bottomPane}" Margin="0,0,30,35" Content="Pause" Click="pauseButton_Click"/>
 		<Button x:Name="legendButton" Height="{Binding Height, ElementName=stopButton}" Width="{Binding Width, ElementName=stopButton}" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=stopButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=bottomPane}" Margin="0,0,100,10" Content="Légende"/>
-		<Button x:Name="detailsButton" Height="{Binding Height, ElementName=stopButton}" Width="{Binding Width, ElementName=stopButton}" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=stopButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=bottomPane}" Margin="0,0,30,10" Content="Détails"/>
+		<Button x:Name="detailsButton" Height="{Binding Height, ElementName=stopButton}" Width="{Binding Width, ElementName=stopButton}" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=stopButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=bottomPane}" Margin="0,0,30,10" Content="Détails" Click="detailsButton_Click"/>
 	</Grid>
 </Window>
