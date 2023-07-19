@@ -216,5 +216,21 @@ namespace defrag
 				this.progressBar.Visibility=Visibility.Visible;
 			}
 		}
+
+		/// <summary>
+		/// fired when the "legendButton" button is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the object that fires the event
+		/// </param>
+		/// <param name="e">
+		/// some event-related data
+		/// </param>
+		private void legendButton_Click (object sender, RoutedEventArgs e)
+		{
+			LegendWindow legendWindow=new LegendWindow ();
+			legendWindow.Owner=this;
+			legendWindow.Show ();
+		}
 	}
 }
