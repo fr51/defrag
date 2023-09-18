@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.Timers;
 using System.Collections.Generic;
 
 namespace defrag
@@ -33,6 +34,19 @@ namespace defrag
 		private bool isHalted=false;
 
 		/// <summary>
+		/// timer used to greet the user
+		/// </summary>
+		/// <remarks>
+		/// this only toggles the "<see cref="toggleUserGreeting"/>" boolean via the "<see cref="allowToGreetUser"/>" method
+		/// </remarks>
+		private System.Timers.Timer timer=new System.Timers.Timer (3000); //duration expressed in milliseconds //replace w/ a real interval
+
+		/// <summary>
+		/// boolean used to greet the user
+		/// </summary>
+		private bool toggleUserGreeting=false;
+
+		/// <summary>
 		/// constructor
 		/// </summary>
 		public MainWindow ()
@@ -40,6 +54,23 @@ namespace defrag
 			InitializeComponent ();
 
 			this.gatherColors ();
+
+			this.timer.Elapsed+=this.allowToGreetUser;
+			this.timer.AutoReset=true;
+		}
+
+		/// <summary>
+		/// toggles a boolean allowing to greet the user
+		/// </summary>
+		/// <param name="source">
+		/// the object that fires the event
+		/// </param>
+		/// <param name="e">
+		/// some event-related data
+		/// </param>
+		private void allowToGreetUser (object source, ElapsedEventArgs e)
+		{
+			this.toggleUserGreeting=true;
 		}
 
 		/// <summary>
@@ -103,6 +134,8 @@ namespace defrag
 
 			await Task.Run (() =>
 			{
+				this.timer.Start ();
+
 				while (true)
 				{
 					if (this.isHalted==false)
@@ -111,9 +144,17 @@ namespace defrag
 						{
 							if (this.isPaused==false)
 							{
-								for (int i=0; i<this.topPane.Children.Count; i++)
+								if (this.toggleUserGreeting==true)
 								{
-									((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+									this.greetUser ();
+									this.toggleUserGreeting=false;
+								}
+								else
+								{
+									for (int i=0; i<this.topPane.Children.Count; i++)
+									{
+										((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+									}
 								}
 
 								int progressValue=progressValuesGenerator.Next (0, 101);
@@ -121,6 +162,7 @@ namespace defrag
 								this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
 							}
 						});
+
 						Thread.Sleep (500);
 					}
 					else
@@ -170,11 +212,13 @@ namespace defrag
 			{
 				this.isPaused=true;
 				this.pauseButton.Content="Reprendre";
+				this.timer.Stop ();
 			}
 			else
 			{
 				this.isPaused=false;
 				this.pauseButton.Content="Pause";
+				this.timer.Start ();
 			}
 		}
 
@@ -193,6 +237,7 @@ namespace defrag
 			this.progressLabel.Content=this.progressLabel.Content.ToString ().Replace ("en cours", "arrêtée");
 			this.isHalted=true;
 			this.stopButton.IsEnabled=false;
+			this.timer.Stop ();
 		}
 
 		/// <summary>
@@ -377,5 +422,5 @@ namespace defrag
 				blockIndexes.Add (i);
 			}
 		}
-		}
-		}
+	}
+}
