@@ -39,7 +39,7 @@ namespace defrag
 		/// <remarks>
 		/// this only toggles the "<see cref="toggleUserGreeting"/>" boolean via the "<see cref="allowToGreetUser"/>" method
 		/// </remarks>
-		private System.Timers.Timer timer=new System.Timers.Timer (3000); //duration expressed in milliseconds //replace w/ a real interval
+		private System.Timers.Timer timer=new System.Timers.Timer (); //duration in milliseconds
 
 		/// <summary>
 		/// boolean used to greet the user
@@ -54,9 +54,21 @@ namespace defrag
 			InitializeComponent ();
 
 			this.gatherColors ();
+			this.setTimerInterval (App.userMessageInterval);
 
 			this.timer.Elapsed+=this.allowToGreetUser;
 			this.timer.AutoReset=true;
+		}
+
+		/// <summary>
+		/// sets the timer's interval (used to greet the user)
+		/// </summary>
+		/// <param name="interval">
+		/// the timer's interval
+		/// </param>
+		private void setTimerInterval (double interval)
+		{
+			this.timer.Interval=interval;
 		}
 
 		/// <summary>
@@ -174,7 +186,42 @@ namespace defrag
 		}
 
 		/// <summary>
-		/// fills the "availableColors" array
+		/// pauses the defragmentation
+		/// </summary>
+		private void pauseDefragmentation ()
+		{
+			this.isPaused=true;
+			this.pauseButton.Content="Reprendre";
+
+			this.timer.Stop ();
+		}
+
+		/// <summary>
+		/// resumes the defragmentation
+		/// </summary>
+		private void resumeDefragmentation ()
+		{
+			this.isPaused=false;
+			this.pauseButton.Content="Pause";
+
+			this.timer.Start ();
+		}
+
+		/// <summary>
+		/// stops the defragmentation
+		/// </summary>
+		private void stopDefragmentation ()
+		{
+			this.pauseButton.IsEnabled=false;
+			this.progressLabel.Content=this.progressLabel.Content.ToString ().Replace ("en cours", "arrêtée");
+			this.isHalted=true;
+			this.stopButton.IsEnabled=false;
+
+			this.timer.Stop ();
+		}
+
+		/// <summary>
+		/// fills the "<see cref="availableColors"/>" array
 		/// </summary>
 		private void gatherColors ()
 		{
@@ -210,15 +257,11 @@ namespace defrag
 		{
 			if (this.isPaused==false)
 			{
-				this.isPaused=true;
-				this.pauseButton.Content="Reprendre";
-				this.timer.Stop ();
+				this.pauseDefragmentation ();
 			}
 			else
 			{
-				this.isPaused=false;
-				this.pauseButton.Content="Pause";
-				this.timer.Start ();
+				this.resumeDefragmentation ();
 			}
 		}
 
@@ -233,11 +276,7 @@ namespace defrag
 		/// </param>
 		private void stopButton_Click (object sender, RoutedEventArgs e)
 		{
-			this.pauseButton.IsEnabled=false;
-			this.progressLabel.Content=this.progressLabel.Content.ToString ().Replace ("en cours", "arrêtée");
-			this.isHalted=true;
-			this.stopButton.IsEnabled=false;
-			this.timer.Stop ();
+			this.stopDefragmentation ();
 		}
 
 		/// <summary>
@@ -277,6 +316,28 @@ namespace defrag
 			LegendWindow legendWindow=new LegendWindow ();
 			legendWindow.Owner=this;
 			legendWindow.Show ();
+
+		/// <summary>
+		/// fired when the "<see cref="settingsButton"/>" is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the object that fires the event
+		/// </param>
+		/// <param name="e">
+		/// some event-related data
+		/// </param>
+		private void settingsButton_Click (object sender, RoutedEventArgs e)
+		{
+			SettingsWindow settingsWindow=new SettingsWindow ();
+			settingsWindow.Owner=this;
+			bool? b=settingsWindow.ShowDialog ();
+
+			if (b==true)
+			{
+				this.pauseDefragmentation ();
+				this.setTimerInterval (App.userMessageInterval);
+				this.resumeDefragmentation ();
+			}
 		}
 
 		/// <summary>
