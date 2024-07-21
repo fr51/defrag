@@ -16,7 +16,7 @@ namespace defrag
 		}
 
 		/// <summary>
-		/// fired when the "OKButton" button is clicked
+		/// fired when the "legendWindowOKButton" button is clicked
 		/// </summary>
 		/// <param name="sender">
 		/// the object that fires the event
@@ -24,7 +24,7 @@ namespace defrag
 		/// <param name="e">
 		/// some event-related data
 		/// </param>
-		private void OKButton_Click (object sender, RoutedEventArgs e)
+		private void legendWindowOKButton_Click (object sender, RoutedEventArgs e)
 		{
 			this.Close ();
 		}
