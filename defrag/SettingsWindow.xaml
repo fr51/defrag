@@ -1,0 +1,16 @@
+﻿<Window x:Name="settingsWindow" x:Class="defrag.SettingsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:defrag" mc:Ignorable="d" Title="paramètres" Height="300" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Background="#FFFFFF9F" Loaded="settingsWindow_Loaded">
+	<Grid x:Name="settingsWindowGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Label x:Name="messageToUserIntervalLabel" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="42" Content="délai du message à l'utilisateur&#10;(millisecondes) :"/>
+		<TextBox x:Name="messageToUserIntervalTextBox" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="{Binding Height, ElementName=messageToUserIntervalLabel}" Width="100" MaxLines="1" MaxLength="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="" ToolTip="1 à 99999"/>
+		<Button x:Name="settingsWindowOKButton" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="40" Content="OK" Click="settingsWindowOKButton_Click"/>
+		<Button x:Name="settingsWindowCancelButton" Grid.Column="1" Grid.Row="1" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=settingsWindowOKButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=settingsWindowOKButton}" Height="{Binding Height, ElementName=settingsWindowOKButton}" Width="Auto" Content="Annuler" Click="settingsWindowCancelButton_Click"/>
+	</Grid>
+</Window>

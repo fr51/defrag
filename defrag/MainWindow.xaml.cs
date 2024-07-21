@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.Timers;
+using System.Collections.Generic;
 
 namespace defrag
 {
@@ -32,6 +34,19 @@ namespace defrag
 		private bool isHalted=false;
 
 		/// <summary>
+		/// timer used to greet the user
+		/// </summary>
+		/// <remarks>
+		/// this only toggles the "<see cref="toggleUserGreeting"/>" boolean via the "<see cref="allowToGreetUser"/>" method
+		/// </remarks>
+		private System.Timers.Timer timer=new System.Timers.Timer (); //duration in milliseconds
+
+		/// <summary>
+		/// boolean used to greet the user
+		/// </summary>
+		private bool toggleUserGreeting=false;
+
+		/// <summary>
 		/// constructor
 		/// </summary>
 		public MainWindow ()
@@ -39,6 +54,35 @@ namespace defrag
 			InitializeComponent ();
 
 			this.gatherColors ();
+			this.setTimerInterval (App.userMessageInterval);
+
+			this.timer.Elapsed+=this.allowToGreetUser;
+			this.timer.AutoReset=true;
+		}
+
+		/// <summary>
+		/// sets the timer's interval (used to greet the user)
+		/// </summary>
+		/// <param name="interval">
+		/// the timer's interval
+		/// </param>
+		private void setTimerInterval (double interval)
+		{
+			this.timer.Interval=interval;
+		}
+
+		/// <summary>
+		/// toggles a boolean allowing to greet the user
+		/// </summary>
+		/// <param name="source">
+		/// the object that fires the event
+		/// </param>
+		/// <param name="e">
+		/// some event-related data
+		/// </param>
+		private void allowToGreetUser (object source, ElapsedEventArgs e)
+		{
+			this.toggleUserGreeting=true;
 		}
 
 		/// <summary>
@@ -102,6 +146,8 @@ namespace defrag
 
 			await Task.Run (() =>
 			{
+				this.timer.Start ();
+
 				while (true)
 				{
 					if (this.isHalted==false)
@@ -110,9 +156,17 @@ namespace defrag
 						{
 							if (this.isPaused==false)
 							{
-								for (int i=0; i<this.topPane.Children.Count; i++)
+								if (this.toggleUserGreeting==true)
 								{
-									((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+									this.greetUser ();
+									this.toggleUserGreeting=false;
+								}
+								else
+								{
+									for (int i=0; i<this.topPane.Children.Count; i++)
+									{
+										((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+									}
 								}
 
 								int progressValue=progressValuesGenerator.Next (0, 101);
@@ -120,6 +174,7 @@ namespace defrag
 								this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
 							}
 						});
+
 						Thread.Sleep (500);
 					}
 					else
@@ -131,7 +186,42 @@ namespace defrag
 		}
 
 		/// <summary>
-		/// fills the "availableColors" array
+		/// pauses the defragmentation
+		/// </summary>
+		private void pauseDefragmentation ()
+		{
+			this.isPaused=true;
+			this.pauseButton.Content="Reprendre";
+
+			this.timer.Stop ();
+		}
+
+		/// <summary>
+		/// resumes the defragmentation
+		/// </summary>
+		private void resumeDefragmentation ()
+		{
+			this.isPaused=false;
+			this.pauseButton.Content="Pause";
+
+			this.timer.Start ();
+		}
+
+		/// <summary>
+		/// stops the defragmentation
+		/// </summary>
+		private void stopDefragmentation ()
+		{
+			this.pauseButton.IsEnabled=false;
+			this.progressLabel.Content=this.progressLabel.Content.ToString ().Replace ("en cours", "arrêtée");
+			this.isHalted=true;
+			this.stopButton.IsEnabled=false;
+
+			this.timer.Stop ();
+		}
+
+		/// <summary>
+		/// fills the "<see cref="availableColors"/>" array
 		/// </summary>
 		private void gatherColors ()
 		{
@@ -167,13 +257,11 @@ namespace defrag
 		{
 			if (this.isPaused==false)
 			{
-				this.isPaused=true;
-				this.pauseButton.Content="Reprendre";
+				this.pauseDefragmentation ();
 			}
 			else
 			{
-				this.isPaused=false;
-				this.pauseButton.Content="Pause";
+				this.resumeDefragmentation ();
 			}
 		}
 
@@ -188,10 +276,7 @@ namespace defrag
 		/// </param>
 		private void stopButton_Click (object sender, RoutedEventArgs e)
 		{
-			this.pauseButton.IsEnabled=false;
-			this.progressLabel.Content=this.progressLabel.Content.ToString ().Replace ("en cours", "arrêtée");
-			this.isHalted=true;
-			this.stopButton.IsEnabled=false;
+			this.stopDefragmentation ();
 		}
 
 		/// <summary>
@@ -231,6 +316,172 @@ namespace defrag
 			LegendWindow legendWindow=new LegendWindow ();
 			legendWindow.Owner=this;
 			legendWindow.Show ();
+
+		/// <summary>
+		/// fired when the "<see cref="settingsButton"/>" is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the object that fires the event
+		/// </param>
+		/// <param name="e">
+		/// some event-related data
+		/// </param>
+		private void settingsButton_Click (object sender, RoutedEventArgs e)
+		{
+			SettingsWindow settingsWindow=new SettingsWindow ();
+			settingsWindow.Owner=this;
+			bool? b=settingsWindow.ShowDialog ();
+
+			if (b==true)
+			{
+				this.pauseDefragmentation ();
+				this.setTimerInterval (App.userMessageInterval);
+				this.resumeDefragmentation ();
+			}
+		}
+
+		/// <summary>
+		/// greets the user by showing a friendly visual message
+		/// </summary>
+		/// <remarks>
+		/// The message consists in a right hand shown from the rear. The blocks to show are arbitrarily determined in the "<see cref="getBlockIndexesInOrderToGreetUser"/>" method
+		/// </remarks>
+		private void greetUser ()
+		{
+			for (int i=0; i<this.topPane.Children.Count; i++)
+			{
+				((Rectangle) this.topPane.Children [i]).Fill=this.topPane.Background;
+			}
+
+			List <int> blockIndexes=new List <int> ();
+
+			this.getBlockIndexesInOrderToGreetUser (blockIndexes);
+
+			for (int i=0; i<blockIndexes.Count; i++) //filling the required blocks
+			{
+				((Rectangle) this.topPane.Children [blockIndexes [i]]).Fill=new SolidColorBrush (this.availableColors [1]); //in red
+			}
+		}
+
+		/// <summary>
+		/// determines which blocks to show when greeting the user
+		/// </summary>
+		/// <param name="blockIndexes">
+		/// the indexes list used by the "<see cref="greetUser"/>" method
+		/// </param>
+		/// <remarks>
+		/// I chose to write this in a separate method in a readability purpose
+		/// </remarks>
+		private void getBlockIndexesInOrderToGreetUser (List <int> blockIndexes)
+		{
+			int index=77;
+
+			//The middle finger is most important one. Did I say the message is friendly?
+			for (int i=0; i<6; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			index=78;
+
+			for (int i=0; i<6; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			//index
+			index=179;
+
+			for (int i=0; i<4; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			index=180;
+
+			for (int i=0; i<4; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			//ring finger
+			index=183;
+
+			for (int i=0; i<4; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			index=184;
+
+			for (int i=0; i<4; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			//pinky
+			index=237;
+
+			for (int i=0; i<3; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			index=238;
+
+			for (int i=0; i<3; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			//thumb
+			index=386;
+
+			for (int i=0; i<3; i++)
+			{
+				blockIndexes.Add (index);
+				index-=52;
+				index--;
+			}
+
+			index=385;
+
+			for (int i=0; i<3; i++)
+			{
+				blockIndexes.Add (index);
+				index-=52;
+				index--;
+			}
+
+			blockIndexes.Add (334);
+
+			//rest of the hand
+			for (int i=1; i<9; i++) //bottom
+			{
+				blockIndexes.Add (446+52-1*i);
+			}
+
+			blockIndexes.Add (437); //left side
+			blockIndexes.Add (446); //right side
+
+			//remaining space
+			for (int i=387; i<395; i++) //part 1
+			{
+				blockIndexes.Add (i);
+			}
+
+			for (int i=438; i<446; i++) //part 2
+			{
+				blockIndexes.Add (i);
+			}
 		}
 	}
 }
