@@ -24,11 +24,19 @@ Un clic sur le bouton "Arrêt" arrête la défragmentation (sans possibilité de rep
 
 ### 4. légende
 
-Un clic sur le bouton "Légende" affiche une fenêtre pop-up affichant le code couleur précisé dans le paragraphe 5 de la section "utilisation de l'interface graphique". Cliquer une nouvelle fois pour la faire disparaître
+Un clic sur le bouton "Légende" affiche une fenêtre pop-up affichant le code couleur précisé dans la section "[code couleur](#code-couleur)". Cliquer une nouvelle fois pour la faire disparaître
 
 ### 5. détails
 
 Un clic sur le bouton "Détails" cache la progression de la défragmentation. Cliquer une nouvelle fois pour l'afficher
+
+### 6. paramètres
+
+Un clic sur le bouton "Paramètres" affiche les paramètres de l'application
+
+#### 1. délai du message à l'utilisateur
+
+Il s'agit de l'intervalle de temps entre deux messages à destination de l'utilisateur (évoqués dans la section "[principe de fonctionnement](#principe-de-fonctionnement)"). Exprimé en millisecondes, c'est un nombre entier entre 0 et 99999
 
 ## code couleur
 
