@@ -16,7 +16,7 @@ namespace defrag
 		}
 
 		/// <summary>
-		/// fired when the "legendWindowOKButton" button is clicked
+		/// fired when the "<see cref="legendWindowOKButton"/>" button is clicked
 		/// </summary>
 		/// <param name="sender">
 		/// the object that fires the event

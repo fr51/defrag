@@ -114,7 +114,7 @@ namespace defrag
 		}
 
 		/// <summary>
-		/// populates the "topPane" canvas with the randomly-filled (among the available colors) blocks
+		/// populates the "<see cref="topPane"/>" canvas with the randomly-filled (among the available colors) blocks
 		/// </summary>
 		private void populateTopPane ()
 		{
@@ -152,7 +152,7 @@ namespace defrag
 				{
 					if (this.isHalted==false)
 					{
-						Application.Current.Dispatcher.Invoke (() =>
+						Application.Current.Dispatcher.Invoke (() => //An exception may pop up here when the "MainWindow" window is closing. It doesn't matter as the user exits anyway
 						{
 							if (this.isPaused==false)
 							{
@@ -245,7 +245,7 @@ namespace defrag
 		}
 
 		/// <summary>
-		/// fired when the "pauseButton" button is clicked
+		/// fired when the "<see cref="pauseButton"/>" button is clicked
 		/// </summary>
 		/// <param name="sender">
 		/// the object that fires the event
@@ -255,18 +255,18 @@ namespace defrag
 		/// </param>
 		private void pauseButton_Click (object sender, RoutedEventArgs e)
 		{
-			if (this.isPaused==false)
+			if (this.isPaused==false) //running
 			{
 				this.pauseDefragmentation ();
 			}
-			else
+			else //paused
 			{
 				this.resumeDefragmentation ();
 			}
 		}
 
 		/// <summary>
-		/// fired when the "stopButton" button is clicked
+		/// fired when the "<see cref="stopButton"/>" button is clicked
 		/// </summary>
 		/// <param name="sender">
 		/// the object that fires the event
@@ -280,7 +280,7 @@ namespace defrag
 		}
 
 		/// <summary>
-		/// fired when the "detailsButton" button is clicked
+		/// fired when the "<see cref="detailsButton"/>" button is clicked
 		/// </summary>
 		/// <param name="sender">
 		/// the object that fires the event
@@ -303,7 +303,7 @@ namespace defrag
 		}
 
 		/// <summary>
-		/// fired when the "legendButton" button is clicked
+		/// fired when the "<see cref="legendButton"/>" button is clicked
 		/// </summary>
 		/// <param name="sender">
 		/// the object that fires the event
@@ -377,7 +377,7 @@ namespace defrag
 			List <int> blockIndexes=new List <int> ();
 			int index=77;
 
-			//The middle finger is most important one. Did I say the message is friendly?
+			//The middle finger is the most important one. Did I ever say the message is friendly?
 			for (int i=0; i<6; i++)
 			{
 				blockIndexes.Add (index);
@@ -474,12 +474,12 @@ namespace defrag
 			blockIndexes.Add (446); //right side
 
 			//remaining space
-			for (int i=387; i<395; i++) //part 1
+			for (int i=387; i<395; i++) //part #1
 			{
 				blockIndexes.Add (i);
 			}
 
-			for (int i=438; i<446; i++) //part 2
+			for (int i=438; i<446; i++) //part #2
 			{
 				blockIndexes.Add (i);
 			}
