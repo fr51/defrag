@@ -26,6 +26,8 @@ namespace defrag
 		/// </param>
 		private void legendWindowOKButton_Click (object sender, RoutedEventArgs e)
 		{
+			this.DialogResult=true;
+
 			this.Close ();
 		}
 	}

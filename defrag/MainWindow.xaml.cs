@@ -315,7 +315,8 @@ namespace defrag
 		{
 			LegendWindow legendWindow=new LegendWindow ();
 			legendWindow.Owner=this;
-			legendWindow.Show ();
+
+			legendWindow.ShowDialog ();
 
 		/// <summary>
 		/// fired when the "<see cref="settingsButton"/>" is clicked
