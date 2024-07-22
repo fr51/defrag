@@ -355,9 +355,7 @@ namespace defrag
 				((Rectangle) this.topPane.Children [i]).Fill=this.topPane.Background;
 			}
 
-			List <int> blockIndexes=new List <int> ();
-
-			this.getBlockIndexesInOrderToGreetUser (blockIndexes);
+			List <int> blockIndexes=this.getBlockIndexesInOrderToGreetUser ();
 
 			for (int i=0; i<blockIndexes.Count; i++) //filling the required blocks
 			{
@@ -368,14 +366,15 @@ namespace defrag
 		/// <summary>
 		/// determines which blocks to show when greeting the user
 		/// </summary>
-		/// <param name="blockIndexes">
+		/// <returns>
 		/// the indexes list used by the "<see cref="greetUser"/>" method
-		/// </param>
+		/// </returns>
 		/// <remarks>
 		/// I chose to write this in a separate method in a readability purpose
 		/// </remarks>
-		private void getBlockIndexesInOrderToGreetUser (List <int> blockIndexes)
+		private List <int> getBlockIndexesInOrderToGreetUser ()
 		{
+			List <int> blockIndexes=new List <int> ();
 			int index=77;
 
 			//The middle finger is most important one. Did I say the message is friendly?
@@ -484,6 +483,8 @@ namespace defrag
 			{
 				blockIndexes.Add (i);
 			}
+
+			return (blockIndexes);
 		}
 	}
 }
