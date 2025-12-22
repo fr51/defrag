@@ -1,0 +1,16 @@
+.vs/
+defrag/bin/Debug/*.exe
+defrag/bin/Debug/*.exe.config
+defrag/bin/Debug/*.pdb
+defrag/obj/Debug/*.g.cs
+defrag/obj/Debug/*.g.i.cs
+defrag/obj/Debug/*.cache
+defrag/obj/Debug/*.exe
+defrag/obj/Debug/*.pdb
+defrag/obj/Debug/*.lref
+defrag/obj/Debug/defrag.Properties.Resources.resources
+defrag/obj/Debug/defrag.g.resources
+defrag/obj/Debug/defrag.csproj.FileListAbsolute.txt
+defrag/obj/Release/*.g.cs
+defrag/obj/Release/*.cache
+defrag/obj/Release/*.lref
