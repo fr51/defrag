@@ -9,6 +9,7 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 1. [Installation](#installation)
 2. [Principe de fonctionnement](#principe-de-fonctionnement)
 3. [Utilisation de l'interface graphique](#utilisation-de-linterface-graphique)
+	1. [Nouvelle défragmentation](#nouvelle-défragmentation)
 4. [Documentation](#documentation)
 5. [Dépendances](#dépendances)
 6. [Tests](#tests)
@@ -21,7 +22,15 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 
 ## Principe de fonctionnement
 
+L'affichage des blocs ainsi que le pourcentage d'avancement sont aléatoires. De la même façon, l'utilisateur reçoit périodiquement un message visuel
+
+L'application s'exécute tant que l'utilisateur ne met pas en pause ni n'arrête la défragmentation
+
 ## Utilisation de l'interface graphique
+
+### Nouvelle défragmentation
+
+La défragmentation est lancée au démarrage de l'application et le lecteur C est arbitrairement choisi
 
 ## Documentation
 
@@ -34,6 +43,8 @@ Le code est documenté en XML
 ## Tests
 
 Les tests sont d'ordre fonctionnel et effectués manuellement. Ils comprennent :
+
+- la vérification du démarrage de la défragmentation
 
 ## Journal de modifications
 
