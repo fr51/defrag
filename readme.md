@@ -10,6 +10,7 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 2. [Principe de fonctionnement](#principe-de-fonctionnement)
 3. [Utilisation de l'interface graphique](#utilisation-de-linterface-graphique)
 	1. [Nouvelle défragmentation](#nouvelle-défragmentation)
+	2. [Arrêt](#arrêt)
 4. [Documentation](#documentation)
 5. [Dépendances](#dépendances)
 6. [Tests](#tests)
@@ -32,6 +33,10 @@ L'application s'exécute tant que l'utilisateur ne met pas en pause ni n'arrête
 
 La défragmentation est lancée au démarrage de l'application et le lecteur C est arbitrairement choisi
 
+### Arrêt
+
+Cliquez sur le bouton "Arrêt" pour arrêter la défragmentation sans possibilité de reprise. Vous pouvez aussi fermer la fenêtre
+
 ## Documentation
 
 Le code est documenté en XML
@@ -44,7 +49,7 @@ Le code est documenté en XML
 
 Les tests sont d'ordre fonctionnel et effectués manuellement. Ils comprennent :
 
-- la vérification du démarrage de la défragmentation
+- la vérification du démarrage et de l'arrêt de la défragmentation
 
 ## Journal de modifications
 
