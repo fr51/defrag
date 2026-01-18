@@ -21,6 +21,11 @@ namespace defrag
 		private readonly Color [] availableColors=new Color [5];
 
 		/// <summary>
+		/// boolean used to halt the defragmentation
+		/// </summary>
+		private bool IsHalted=false;
+
+		/// <summary>
 		/// constructor
 		/// </summary>
 		public MainWindow ()
@@ -56,6 +61,20 @@ namespace defrag
 		private void MainWindow_ContentRendered (object sender, EventArgs eventArgs)
 		{
 			this.StartDefragmentation ();
+		}
+
+		/// <summary>
+		/// fired when the "<see cref="StopButton"/>" button is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the <see cref="StopButton"> button
+		/// </param>
+		/// <param name="routedEventArgs">
+		/// some event-related data
+		/// </param>
+		private void StopButton_Click (object sender, RoutedEventArgs routedEventArgs)
+		{
+			this.StopDefragmentation ();
 		}
 
 		/// <summary>
@@ -118,17 +137,33 @@ namespace defrag
 			{
 				while (true)
 				{
-					Application.Current.Dispatcher.Invoke (() => //An exception may pop up here when the "MainWindow" window is closing. It doesn't matter as we exit anyway
+					if (this.IsHalted==false)
 					{
-						for (int i=0; i<this.topPane.Children.Count; i++)
+						Application.Current.Dispatcher.Invoke (() => //An exception may pop up here when the "MainWindow" window is closing. It doesn't matter as we exit anyway
 						{
-							((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
-						}
-					});
+							for (int i=0; i<this.topPane.Children.Count; i++)
+							{
+								((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+							}
+						});
 
-					Thread.Sleep (500);
+						Thread.Sleep (500);
+					}
+					else
+					{
+						return;
+					}
 				}
 			});
+		}
+
+		/// <summary>
+		/// stops the defragmentation
+		/// </summary>
+		private void StopDefragmentation ()
+		{
+			this.IsHalted=true;
+			this.StopButton.IsEnabled=false;
 		}
 	}
 }
