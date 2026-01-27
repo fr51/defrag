@@ -12,3 +12,4 @@ Ceci constitue la version initiale avec les fonctionnalités de base de la défr
 
 - démarrage
 - arrêt
+- interruption et reprise
