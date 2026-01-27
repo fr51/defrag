@@ -11,6 +11,7 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 3. [Utilisation de l'interface graphique](#utilisation-de-linterface-graphique)
 	1. [Nouvelle défragmentation](#nouvelle-défragmentation)
 	2. [Arrêt](#arrêt)
+	3. [Pause](#pause)
 4. [Documentation](#documentation)
 5. [Dépendances](#dépendances)
 6. [Tests](#tests)
@@ -36,6 +37,10 @@ La défragmentation est lancée au démarrage de l'application et le lecteur C e
 ### Arrêt
 
 Cliquez sur le bouton "Arrêt" pour arrêter la défragmentation sans possibilité de reprise. Vous pouvez aussi fermer la fenêtre
+
+### Pause
+
+Cliquez sur le bouton "Pause" pour suspendre la défragmentation. Cliquez une nouvelle fois pour reprendre
 
 ## Documentation
 

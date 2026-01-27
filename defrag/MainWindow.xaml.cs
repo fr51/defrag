@@ -26,6 +26,11 @@ namespace defrag
 		private bool IsHalted=false;
 
 		/// <summary>
+		/// boolean used to pause the defragmentation
+		/// </summary>
+		private bool IsPaused=false;
+
+		/// <summary>
 		/// constructor
 		/// </summary>
 		public MainWindow ()
@@ -75,6 +80,27 @@ namespace defrag
 		private void StopButton_Click (object sender, RoutedEventArgs routedEventArgs)
 		{
 			this.StopDefragmentation ();
+		}
+
+		/// <summary>
+		/// fired when the "<see cref="PauseButton"/>" button is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the <see cref="PauseButton"> button
+		/// </param>
+		/// <param name="routedEventArgs">
+		/// some event-related data
+		/// </param>
+		private void PauseButton_Click (object sender, RoutedEventArgs routedEventArgs)
+		{
+			if (this.IsPaused==false) //running
+			{
+				this.PauseDefragmentation ();
+			}
+			else //paused
+			{
+				this.ResumeDefragmentation ();
+			}
 		}
 
 		/// <summary>
@@ -141,9 +167,12 @@ namespace defrag
 					{
 						Application.Current.Dispatcher.Invoke (() => //An exception may pop up here when the "MainWindow" window is closing. It doesn't matter as we exit anyway
 						{
-							for (int i=0; i<this.topPane.Children.Count; i++)
+							if (this.IsPaused==false)
 							{
-								((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+								for (int i=0; i<this.topPane.Children.Count; i++)
+								{
+									((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+								}
 							}
 						});
 
@@ -164,6 +193,25 @@ namespace defrag
 		{
 			this.IsHalted=true;
 			this.StopButton.IsEnabled=false;
+			this.PauseButton.IsEnabled=false;
+		}
+
+		/// <summary>
+		/// pauses the defragmentation
+		/// </summary>
+		private void PauseDefragmentation ()
+		{
+			this.IsPaused=true;
+			this.PauseButton.Content="Reprendre";
+		}
+
+		/// <summary>
+		/// resumes the defragmentation
+		/// </summary>
+		private void ResumeDefragmentation ()
+		{
+			this.IsPaused=false;
+			this.PauseButton.Content="Pause";
 		}
 	}
 }

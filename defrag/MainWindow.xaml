@@ -3,5 +3,6 @@
 		<Canvas x:Name="topPane" Width="{Binding Width, ElementName=mainWindow}" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Background="#FFFFFF9F"/>
 		<Border x:Name="bottomPane" Width="{Binding Width, ElementName=mainWindow}" Height="60" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=topPane}" VerticalAlignment="Bottom" Margin="0,0,0,0" BorderBrush="#FFFFFF" BorderThickness="1" Background="#FF848282"/>
 		<Button x:Name="StopButton" Height="20" Width="63" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,95,35" Content="Arrêt" Click="StopButton_Click"/>
+		<Button x:Name="PauseButton" Height="{Binding Height, ElementName=StopButton}" Width="{Binding Width, ElementName=StopButton}" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=StopButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=StopButton}" Margin="0,0,20,35" Content="Pause" Click="PauseButton_Click"/>
 	</Grid>
 </Window>
