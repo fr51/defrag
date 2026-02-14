@@ -12,6 +12,7 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 	1. [Nouvelle défragmentation](#nouvelle-défragmentation)
 	2. [Arrêt](#arrêt)
 	3. [Pause](#pause)
+	4. [Détails](#détails)
 4. [Documentation](#documentation)
 5. [Dépendances](#dépendances)
 6. [Tests](#tests)
@@ -41,6 +42,10 @@ Cliquez sur le bouton "Arrêt" pour arrêter la défragmentation sans possibilit
 ### Pause
 
 Cliquez sur le bouton "Pause" pour suspendre la défragmentation. Cliquez une nouvelle fois pour reprendre
+
+### Détails
+
+Cliquez sur le bouton "Détails" pour cacher la progression de la défragmentation. Cliquez une nouvelle fois pour l'afficher de nouveau
 
 ## Documentation
 
