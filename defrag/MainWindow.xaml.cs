@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -104,6 +105,27 @@ namespace defrag
 		}
 
 		/// <summary>
+		/// fired when the "<see cref="DetailsButton"/>" button is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the "<see cref="DetailsButton"/>" button
+		/// </param>
+		/// <param name="routedEventArgs">
+		/// some event-related data
+		/// </param>
+		private void DetailsButton_Click (object sender, RoutedEventArgs routedEventArgs)
+		{
+			if (this.progressLabel.IsVisible)
+			{
+				this.progressLabel.Visibility=Visibility.Hidden;
+			}
+			else
+			{
+				this.progressLabel.Visibility=Visibility.Visible;
+			}
+		}
+
+		/// <summary>
 		/// Fills the "<see cref="availableColors"/>" array
 		/// </summary>
 		private void GatherColors ()
@@ -158,6 +180,7 @@ namespace defrag
 		private async void StartDefragmentation ()
 		{
 			Random randomNumbersGenerator=new Random ();
+			Random progressValuesGenerator=new Random ();
 
 			await Task.Run (() =>
 			{
@@ -173,6 +196,10 @@ namespace defrag
 								{
 									((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
 								}
+
+								int progressValue=progressValuesGenerator.Next (0, 101);
+								this.progressBar.Value=progressValue;
+								this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
 							}
 						});
 
@@ -194,6 +221,7 @@ namespace defrag
 			this.IsHalted=true;
 			this.StopButton.IsEnabled=false;
 			this.PauseButton.IsEnabled=false;
+			this.progressLabel.Content=this.progressLabel.Content.ToString ().Replace ("en cours", "arrêtée");
 		}
 
 		/// <summary>
