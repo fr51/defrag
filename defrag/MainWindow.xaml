@@ -7,5 +7,6 @@
 		<Button x:Name="StopButton" Height="20" Width="63" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,95,35" Content="Arrêt" Click="StopButton_Click"/>
 		<Button x:Name="PauseButton" Height="{Binding Height, ElementName=StopButton}" Width="{Binding Width, ElementName=StopButton}" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=StopButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=StopButton}" Margin="0,0,20,35" Content="Pause" Click="PauseButton_Click"/>
 		<Button x:Name="DetailsButton" Height="{Binding Height, ElementName=StopButton}" Width="{Binding Width, ElementName=StopButton}" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=StopButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=StopButton}" Margin="0,0,20,10" Content="Détails" Click="DetailsButton_Click"/>
+		<Button x:Name="LegendButton" Height="{Binding Height, ElementName=StopButton}" Width="{Binding Width, ElementName=StopButton}" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=StopButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=StopButton}" Margin="0,0,95,10" Content="Légende" Click="LegendButton_Click"/>
 	</Grid>
 </Window>

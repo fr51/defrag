@@ -1,0 +1,27 @@
+<Window x:Name="legendWindow" x:Class="defrag.LegendWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:defrag" mc:Ignorable="d" Title="légende" Height="400" Width="190" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Background="#FFFFFF9F">
+	<Grid x:Name="legendWindowGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Rectangle x:Name="FreeBlockRectangle" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="{Binding Height, ElementName=FreeBlockRectangle}" Fill="#FFFFFF"/>
+		<Label x:Name="FreeBlockLabel" Grid.Column="1" Grid.Row="0" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=FreeBlockRectangle}" VerticalAlignment="{Binding VerticalAlignment, ElementName=FreeBlockRectangle}" Height="30" Content="libre"/>
+		<Rectangle x:Name="FaultyBlockRectangle" Grid.Column="0" Grid.Row="1" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=FreeBlockRectangle}" VerticalAlignment="{Binding VerticalAlignment, ElementName=FreeBlockRectangle}" Height="{Binding Height, ElementName=FreeBlockRectangle}" Width="{Binding Width, ElementName=FreeBlockRectangle}" Fill="#FF0000"/>
+		<Label x:Name="FaultyBlockLabel" Grid.Column="1" Grid.Row="1" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=FreeBlockRectangle}" VerticalAlignment="{Binding VerticalAlignment, ElementName=FreeBlockRectangle}" Height="{Binding Height, ElementName=freeBlockLabel}" Content="défectueux"/>
+		<Rectangle x:Name="DefragmentedBlockRectangle" Grid.Column="0" Grid.Row="2" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=FreeBlockRectangle}" VerticalAlignment="{Binding VerticalAlignment, ElementName=FreeBlockRectangle}" Height="{Binding Height, ElementName=FreeBlockRectangle}" Width="{Binding Width, ElementName=FreeBlockRectangle}" Fill="#0000FF"/>
+		<Label x:Name="DefragmentedBlockLabel" Grid.Column="1" Grid.Row="2" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=FreeBlockRectangle}" VerticalAlignment="{Binding VerticalAlignment, ElementName=FreeBlockRectangle}" Height="{Binding Height, ElementName=freeBlockLabel}" Content="défragmenté"/>
+		<Rectangle x:Name="FragmentedBlockRectangle" Grid.Column="0" Grid.Row="3" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=FreeBlockRectangle}" VerticalAlignment="{Binding VerticalAlignment, ElementName=FreeBlockRectangle}" Height="{Binding Height, ElementName=FreeBlockRectangle}" Width="{Binding Width, ElementName=FreeBlockRectangle}" Fill="#00FFFF"/>
+		<Label x:Name="FragmentedBlockLabel" Grid.Column="1" Grid.Row="3" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=FreeBlockRectangle}" VerticalAlignment="{Binding VerticalAlignment, ElementName=FreeBlockRectangle}" Height="{Binding Height, ElementName=freeBlockLabel}" Content="fragmenté"/>
+		<Rectangle x:Name="UnmovableBlockRectangle" Grid.Column="0" Grid.Row="4" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=FreeBlockRectangle}" VerticalAlignment="{Binding VerticalAlignment, ElementName=FreeBlockRectangle}" Height="{Binding Height, ElementName=FreeBlockRectangle}" Width="{Binding Width, ElementName=FreeBlockRectangle}" Fill="#000000"/>
+		<Label x:Name="UnmovableBlockLabel" Grid.Column="1" Grid.Row="4" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=FreeBlockRectangle}" VerticalAlignment="{Binding VerticalAlignment, ElementName=FreeBlockRectangle}" Height="{Binding Height, ElementName=freeBlockLabel}" Content="inamovible"/>
+		<Button x:Name="LegendWindowOKButton" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="40" Content="OK" Click="LegendWindowOKButton_Click"/>
+	</Grid>
+</Window>

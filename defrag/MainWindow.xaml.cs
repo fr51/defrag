@@ -126,6 +126,23 @@ namespace defrag
 		}
 
 		/// <summary>
+		/// fired when the "<see cref="LegendButton"/>" button is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the "<see cref="LegendButton"/>" button
+		/// </param>
+		/// <param name="routedEventArgs">
+		/// some event-related data
+		/// </param>
+		private void LegendButton_Click (object sender, RoutedEventArgs routedEventArgs)
+		{
+			LegendWindow legendWindow=new LegendWindow ();
+			legendWindow.Owner=this;
+
+			legendWindow.ShowDialog ();
+		}
+
+		/// <summary>
 		/// Fills the "<see cref="availableColors"/>" array
 		/// </summary>
 		private void GatherColors ()
