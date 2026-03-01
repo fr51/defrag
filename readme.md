@@ -13,6 +13,8 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 	2. [Arrêt](#arrêt)
 	3. [Pause](#pause)
 	4. [Détails](#détails)
+	5. [Légende](#légende)
+		1. [Code couleur](#code-couleur)
 4. [Documentation](#documentation)
 5. [Dépendances](#dépendances)
 6. [Tests](#tests)
@@ -47,6 +49,20 @@ Cliquez sur le bouton "Pause" pour suspendre la défragmentation. Cliquez une no
 
 Cliquez sur le bouton "Détails" pour cacher la progression de la défragmentation. Cliquez une nouvelle fois pour l'afficher de nouveau
 
+###  Légende
+
+Cliquez sur le bouton "Légende" pour afficher une fenêtre pop-up avec le [code couleur](#code-couleur) (répertorié ci-dessous) des blocs
+
+#### Code couleur
+
+| couleur du bloc | signification |
+| ----------- | ----------- |
+| blanc | libre |
+| rouge | inamovible car défectueux |
+| bleu | défragmenté |
+| turquoise | fragmenté |
+| noir | inamovible mais pas défectueux |
+
 ## Documentation
 
 Le code est documenté en XML
@@ -59,7 +75,9 @@ Le code est documenté en XML
 
 Les tests sont d'ordre fonctionnel et effectués manuellement. Ils comprennent :
 
-- la vérification du démarrage et de l'arrêt de la défragmentation
+- la vérification du démarrage, de la suspension, de la reprise et de l'arrêt de la défragmentation
+- la vérification de l'affichage/masquage des détails
+- la vérification de l'affichage/masquage de la légende
 
 ## Journal de modifications
 
