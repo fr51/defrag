@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Timers=System.Timers; //without alias, the compiler confuses with System.Threading namespace when using the Timer class
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -32,6 +35,19 @@ namespace defrag
 		private bool IsPaused=false;
 
 		/// <summary>
+		/// timer used to greet the user
+		/// </summary>
+		/// <remarks>
+		/// this only toggles the "<see cref="ToggleUserGreeting"/>" boolean via the "<see cref="AllowToGreetUser"/>" method
+		/// </remarks>
+		private readonly Timers.Timer Timer=new Timers.Timer (5000d); //duration in milliseconds
+
+		/// <summary>
+		/// boolean used to greet the user
+		/// </summary>
+		private bool ToggleUserGreeting=false;
+
+		/// <summary>
 		/// constructor
 		/// </summary>
 		public MainWindow ()
@@ -39,6 +55,9 @@ namespace defrag
 			InitializeComponent ();
 
 			this.GatherColors ();
+
+			this.Timer.Elapsed+=this.AllowToGreetUser;
+			this.Timer.AutoReset=true;
 		}
 
 		/// <summary>
@@ -201,6 +220,8 @@ namespace defrag
 
 			await Task.Run (() =>
 			{
+				this.Timer.Start ();
+
 				while (true)
 				{
 					if (this.IsHalted==false)
@@ -209,9 +230,17 @@ namespace defrag
 						{
 							if (this.IsPaused==false)
 							{
-								for (int i=0; i<this.topPane.Children.Count; i++)
+								if (this.ToggleUserGreeting==true)
 								{
-									((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+									this.GreetUser ();
+									this.ToggleUserGreeting=false;
+								}
+								else
+								{
+									for (int i=0; i<this.topPane.Children.Count; i++)
+									{
+										((Rectangle) this.topPane.Children [i]).Fill=new SolidColorBrush (this.availableColors [randomNumbersGenerator.Next (0, this.availableColors.Length)]);
+									}
 								}
 
 								int progressValue=progressValuesGenerator.Next (0, 101);
@@ -235,6 +264,8 @@ namespace defrag
 		/// </summary>
 		private void StopDefragmentation ()
 		{
+			this.Timer.Stop ();
+
 			this.IsHalted=true;
 			this.StopButton.IsEnabled=false;
 			this.PauseButton.IsEnabled=false;
@@ -246,6 +277,8 @@ namespace defrag
 		/// </summary>
 		private void PauseDefragmentation ()
 		{
+			this.Timer.Stop ();
+
 			this.IsPaused=true;
 			this.PauseButton.Content="Reprendre";
 		}
@@ -255,8 +288,149 @@ namespace defrag
 		/// </summary>
 		private void ResumeDefragmentation ()
 		{
+			this.Timer.Start ();
+
 			this.IsPaused=false;
 			this.PauseButton.Content="Pause";
+		}
+
+		/// <summary>
+		/// toggles a boolean allowing to greet the user
+		/// </summary>
+		/// <param name="source">
+		/// the <see cref="Timers.Timer.Elapsed"> event
+		/// </param>
+		/// <param name="elapsedEventArgs">
+		/// some event-related data
+		/// </param>
+		private void AllowToGreetUser (object source, Timers.ElapsedEventArgs elapsedEventArgs)
+		{
+			this.ToggleUserGreeting=true;
+		}
+
+		/// <summary>
+		/// greets the user by showing a friendly visual message
+		/// </summary>
+		private void GreetUser ()
+		{
+			for (int i=0; i<this.topPane.Children.Count; i++)
+			{
+				((Rectangle) this.topPane.Children [i]).Fill=this.topPane.Background;
+			}
+
+			List <int> blockIndexes=this.GetUserGreetingBlockIndexes ();
+
+			for (int i=0; i<blockIndexes.Count; i++) //filling the required blocks
+			{
+				((Rectangle) this.topPane.Children [blockIndexes [i]]).Fill=new SolidColorBrush (this.availableColors [1]); //in red
+			}
+		}
+
+		/// <summary>
+		/// determines which blocks to show when greeting the user
+		/// </summary>
+		/// <returns>
+		/// the indexes list used by the "<see cref="GreetUser"/>" method
+		/// </returns>
+		private List <int> GetUserGreetingBlockIndexes ()
+		{
+			List <int> blockIndexes=new List <int> (0);
+			int index=129;
+
+			//The middle finger is the most important one. Did I ever say the message is friendly?
+			for (int i=0; i<7; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			index=130;
+
+			for (int i=0; i<7; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			//index
+			index=283;
+
+			for (int i=0; i<4; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			index=284;
+
+			for (int i=0; i<4; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			//ring finger
+			index=287; //183
+
+			for (int i=0; i<4; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			index=288; //184
+
+			for (int i=0; i<4; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			//pinky
+			index=341;
+
+			for (int i=0; i<3; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			index=342;
+
+			for (int i=0; i<3; i++)
+			{
+				blockIndexes.Add (index);
+				index+=52;
+			}
+
+			//thumb
+			index=436;
+
+			for (int i=0; i<3; i++)
+			{
+				blockIndexes.Add (index);
+				index-=53;
+			}
+
+			index=437;
+
+			for (int i=0; i<3; i++)
+			{
+				blockIndexes.Add (index);
+				index-=53;
+			}
+
+			//rest of the hand
+			for (int i=1; i<9; i++) //bottom
+			{
+				blockIndexes.Add (602-1*i); //602=550+52
+			}
+
+			//remaining space
+			blockIndexes.AddRange (Enumerable.Range (489, 10));
+			blockIndexes.AddRange (Enumerable.Range (541, 10));
+
+			return (blockIndexes);
 		}
 	}
 }

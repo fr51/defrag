@@ -2,7 +2,14 @@
 
 ## Table des matières
 
-1. [v1](#v1)
+1. [v1](#v1.1)
+2. [v1](#v1)
+
+## v1.1
+
+### Nouvelles fonctionnalités
+
+Ajout du message destiné à l'utilisateur
 
 ## v1
 
