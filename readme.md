@@ -15,6 +15,7 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 	4. [Détails](#détails)
 	5. [Légende](#légende)
 		1. [Code couleur](#code-couleur)
+	6. [Paramètres](#paramètres)
 4. [Documentation](#documentation)
 5. [Dépendances](#dépendances)
 6. [Tests](#tests)
@@ -62,6 +63,10 @@ Cliquez sur le bouton "Légende" pour afficher une fenêtre pop-up avec le [code
 | bleu | défragmenté |
 | turquoise | fragmenté |
 | noir | inamovible mais pas défectueux |
+
+### Paramètres
+
+Cliquez sur le bouton "Paramètres" pour afficher les paramètres
 
 ## Documentation
 

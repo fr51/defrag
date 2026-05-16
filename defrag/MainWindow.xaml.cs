@@ -162,6 +162,26 @@ namespace defrag
 		}
 
 		/// <summary>
+		/// fired when the "<see cref="SettingsButton"/>" button is clicked
+		/// </summary>
+		/// <param name="sender">
+		/// the "<see cref="SettingsButton"/>" button
+		/// </param>
+		/// <param name="routedEventArgs">
+		/// some event-related data
+		/// </param>
+		private void SettingsButton_Click (object sender, RoutedEventArgs routedEventArgs)
+		{
+			SettingsWindow settingsWindow=new SettingsWindow ();
+			settingsWindow.Owner=this;
+			bool? dialogResult=settingsWindow.ShowDialog ();
+
+			if (dialogResult==true)
+			{
+			}
+		}
+
+		/// <summary>
 		/// Fills the "<see cref="availableColors"/>" array
 		/// </summary>
 		private void GatherColors ()
