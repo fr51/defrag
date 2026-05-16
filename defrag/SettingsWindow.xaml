@@ -1,0 +1,14 @@
+<Window x:Name="settingsWindow" x:Class="defrag.SettingsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:defrag" mc:Ignorable="d" Title="paramètres" Height="300" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Background="#FFFFFF9F" Loaded="SettingsWindow_Loaded">
+	<Grid x:Name="SettingsWindowGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Button x:Name="SettingsWindowOKButton" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="40" Content="OK" Click="SettingsWindowOKButton_Click"/>
+		<Button x:Name="SettingsWindowCancelButton" Grid.Column="1" Grid.Row="1" HorizontalAlignment="{Binding HorizontalAlignment, ElementName=SettingsWindowOKButton}" VerticalAlignment="{Binding VerticalAlignment, ElementName=SettingsWindowOKButton}" Height="{Binding Height, ElementName=SettingsWindowOKButton}" Width="Auto" Content="Annuler" Click="SettingsWindowCancelButton_Click"/>
+	</Grid>
+</Window>

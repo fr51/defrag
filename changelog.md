@@ -2,8 +2,15 @@
 
 ## Table des matières
 
-1. [v1.1](#v1.1)
-2. [v1](#v1)
+1. [v1.2](#v1.2)
+2. [v1.1](#v1.1)
+3. [v1](#v1)
+
+## v1.2
+
+### Nouvelles fonctionnalités
+
+Ajout des paramètres
 
 ## v1.1
 
