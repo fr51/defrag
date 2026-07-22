@@ -16,6 +16,7 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 	5. [Légende](#légende)
 		1. [Code couleur](#code-couleur)
 	6. [Paramètres](#paramètres)
+		1. [Temporisation du message à l'utilisateur](#temporisation-du-message-à-lutilisateur)
 4. [Documentation](#documentation)
 5. [Dépendances](#dépendances)
 6. [Tests](#tests)
@@ -25,6 +26,8 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 ## Installation
 
 1. Téléchargez la dernière version dans la section "Releases"
+> [!IMPORTANT]
+> Reportez-vous à la section [Dépendances](#dépendances)
 
 ## Principe de fonctionnement
 
@@ -68,6 +71,10 @@ Cliquez sur le bouton "Légende" pour afficher une fenêtre pop-up avec le [code
 
 Cliquez sur le bouton "Paramètres" pour afficher les paramètres
 
+#### Temporisation du message à l'utilisateur
+
+Il s'agit de l'intervalle de temps entre deux messages à destination de l'utilisateur (mentionnés dans la section "[Principe de fonctionnement](#principe-de-fonctionnement)"). Exprimé en secondes, c'est un nombre entier entre 1 et 5
+
 ## Documentation
 
 Le code est documenté en XML
@@ -75,6 +82,9 @@ Le code est documenté en XML
 ## Dépendances
 
 - .NET framework 4.8.1+. Cette application est prévue pour Windows
+- [WPFUpDownControl](https://github.com/fr51/WPFUpDownControl/tree/prod)
+> [!IMPORTANT]
+> Quand vous téléchargez l'exécutable (`defrag.exe`), pensez à télécharger aussi le contrôle WPF (`WPFUpDownControl.dll`), et veillez à ce que les deux se trouvent dans le même dossier. Un embarquement du contrôle dans l'exécutable viendra dans une version ultérieure
 
 ## Tests
 
@@ -83,6 +93,8 @@ Les tests sont d'ordre fonctionnel et effectués manuellement. Ils comprennent :
 - la vérification du démarrage, de la suspension, de la reprise et de l'arrêt de la défragmentation
 - la vérification de l'affichage/masquage des détails
 - la vérification de l'affichage/masquage de la légende
+- la vérification de l'affichage et de la temporisation du message à destination de l'utilisateur
+- la vérification de la modification de cette temporisation
 
 ## Journal de modifications
 
