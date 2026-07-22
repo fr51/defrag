@@ -2,10 +2,17 @@
 
 ## Table des matières
 
-1. [v1.3](#v1.3)
-2. [v1.2](#v1.2)
-3. [v1.1](#v1.1)
-4. [v1](#v1)
+1. [v1.3.1](#v1.3.1)
+2. [v1.3](#v1.3)
+3. [v1.2](#v1.2)
+4. [v1.1](#v1.1)
+5. [v1](#v1)
+
+## v1.3.1
+
+### Corrections
+
+Correction d'erreurs dans la fenêtre de légende
 
 ## v1.3
 
