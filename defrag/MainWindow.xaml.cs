@@ -55,6 +55,7 @@ namespace defrag
 			InitializeComponent ();
 
 			this.GatherColors ();
+			this.SetTimerInterval (App.userMessageInterval);
 
 			this.Timer.Elapsed+=this.AllowToGreetUser;
 			this.Timer.AutoReset=true;
@@ -178,6 +179,9 @@ namespace defrag
 
 			if (dialogResult==true)
 			{
+				this.PauseDefragmentation ();
+				this.SetTimerInterval (App.userMessageInterval);
+				this.ResumeDefragmentation ();
 			}
 		}
 
@@ -312,6 +316,17 @@ namespace defrag
 
 			this.IsPaused=false;
 			this.PauseButton.Content="Pause";
+		}
+
+		/// <summary>
+		/// sets the timer's interval (used to greet the user)
+		/// </summary>
+		/// <param name="interval">
+		/// the timer's interval
+		/// </param>
+		private void SetTimerInterval (double interval)
+		{
+			this.Timer.Interval=interval;
 		}
 
 		/// <summary>
