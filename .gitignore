@@ -1,4 +1,5 @@
 .vs/
+defrag/bin/Debug/*.dll
 defrag/bin/Debug/*.exe
 defrag/bin/Debug/*.exe.config
 defrag/bin/Debug/*.pdb
