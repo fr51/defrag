@@ -17,6 +17,7 @@ Il s'agit en réalité d'un moyen déguisé de procrastination dont @[Almisuifre
 		1. [Code couleur](#code-couleur)
 	6. [Paramètres](#paramètres)
 		1. [Temporisation du message à l'utilisateur](#temporisation-du-message-à-lutilisateur)
+		2. [Langue](#langue)
 4. [Documentation](#documentation)
 5. [Dépendances](#dépendances)
 6. [Tests](#tests)
@@ -75,6 +76,15 @@ Cliquez sur le bouton "Paramètres" pour afficher les paramètres
 
 Il s'agit de l'intervalle de temps entre deux messages à destination de l'utilisateur (mentionnés dans la section "[Principe de fonctionnement](#principe-de-fonctionnement)"). Exprimé en secondes, c'est un nombre entier entre 1 et 5
 
+#### Langue
+
+Le défragmenteur est disponible en
+
+- francais
+- anglais
+
+Possibilité d'en rajouter à volonté
+
 ## Documentation
 
 Le code est documenté en XML
@@ -95,6 +105,7 @@ Les tests sont d'ordre fonctionnel et effectués manuellement. Ils comprennent :
 - la vérification de l'affichage/masquage de la légende
 - la vérification de l'affichage et de la temporisation du message à destination de l'utilisateur
 - la vérification de la modification de cette temporisation
+- la vérification du changement des textes suite au changement de langue
 
 ## Journal de modifications
 

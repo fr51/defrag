@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Timers=System.Timers; //without alias, the compiler confuses with System.Threading namespace when using the Timer class
 using System.Windows;
@@ -8,6 +9,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Resources;
 
 namespace defrag
 {
@@ -76,6 +78,20 @@ namespace defrag
 		}
 
 		/// <summary>
+		/// fired when the window is about to close, but we can still cancel
+		/// </summary>
+		/// <param name="sender">
+		/// the <see cref="MainWindow"> window
+		/// </param>
+		/// <param name="cancelEventArgs">
+		/// some event-related data
+		/// </param>
+		private void MainWindow_Closing (object sender, CancelEventArgs cancelEventArgs)
+		{
+			this.DialogResult=true;
+		}
+
+		/// <summary>
 		/// fired once the window's content is rendered
 		/// </summary>
 		/// <param name="sender">
@@ -86,6 +102,7 @@ namespace defrag
 		/// </param>
 		private void MainWindow_ContentRendered (object sender, EventArgs eventArgs)
 		{
+			this.SetStrings ();
 			this.StartDefragmentation ();
 		}
 
@@ -135,13 +152,22 @@ namespace defrag
 		/// </param>
 		private void DetailsButton_Click (object sender, RoutedEventArgs routedEventArgs)
 		{
-			if (this.progressLabel.IsVisible)
+			FrameworkElement [] itemsToToggle=new FrameworkElement []
 			{
-				this.progressLabel.Visibility=Visibility.Hidden;
-			}
-			else
+				this.ProgressStackPanel,
+				this.ProgressBar
+			};
+
+			for (int i=0; i<itemsToToggle.Length; i++)
 			{
-				this.progressLabel.Visibility=Visibility.Visible;
+				if (itemsToToggle [i].IsVisible)
+				{
+					itemsToToggle [i].Visibility=Visibility.Hidden;
+				}
+				else
+				{
+					itemsToToggle [i].Visibility=Visibility.Visible;
+				}
 			}
 		}
 
@@ -156,8 +182,10 @@ namespace defrag
 		/// </param>
 		private void LegendButton_Click (object sender, RoutedEventArgs routedEventArgs)
 		{
-			LegendWindow legendWindow=new LegendWindow ();
-			legendWindow.Owner=this;
+			LegendWindow legendWindow=new LegendWindow
+			{
+				Owner=this
+			};
 
 			legendWindow.ShowDialog ();
 		}
@@ -173,8 +201,10 @@ namespace defrag
 		/// </param>
 		private void SettingsButton_Click (object sender, RoutedEventArgs routedEventArgs)
 		{
-			SettingsWindow settingsWindow=new SettingsWindow ();
-			settingsWindow.Owner=this;
+			SettingsWindow settingsWindow=new SettingsWindow
+			{
+				Owner=this
+			};
 			bool? dialogResult=settingsWindow.ShowDialog ();
 
 			if (dialogResult==true)
@@ -268,8 +298,8 @@ namespace defrag
 								}
 
 								int progressValue=progressValuesGenerator.Next (0, 101);
-								this.progressBar.Value=progressValue;
-								this.progressLabel.Content=Regex.Replace (this.progressLabel.Content.ToString (), "[0-9]{1,3}", progressValue.ToString ());
+								this.ProgressBar.Value=progressValue;
+								this.ProgressPercentageLabel.Content=Regex.Replace (this.ProgressPercentageLabel.Content.ToString (), "[0-9]{1,}", progressValue.ToString ());
 							}
 						});
 
@@ -293,7 +323,7 @@ namespace defrag
 			this.IsHalted=true;
 			this.StopButton.IsEnabled=false;
 			this.PauseButton.IsEnabled=false;
-			this.progressLabel.Content=this.progressLabel.Content.ToString ().Replace ("en cours", "arrêtée");
+			this.ProgressTextLabel.Content=App.GetStringsResourceManager ().GetString ("DefragHalted");
 		}
 
 		/// <summary>
@@ -466,6 +496,22 @@ namespace defrag
 			blockIndexes.AddRange (Enumerable.Range (541, 10));
 
 			return (blockIndexes);
+		}
+
+		/// <summary>
+		/// sets the strings used in this window, according to the language the user chose
+		/// </summary>
+		internal void SetStrings ()
+		{
+			ResourceManager resourceManager=App.GetStringsResourceManager ();
+
+			this.Title=resourceManager.GetString ("MainWindowTitle");
+			this.StopButton.Content=resourceManager.GetString ("MainWindowStopButton");
+			this.PauseButton.Content=resourceManager.GetString ("MainWindowPauseButton");
+			this.DetailsButton.Content=resourceManager.GetString ("MainWindowDetailsButton");
+			this.LegendButton.Content=resourceManager.GetString ("MainWindowLegendButton");
+			this.SettingsButton.Content=resourceManager.GetString ("MainWindowSettingsButton");
+			this.ProgressTextLabel.Content=resourceManager.GetString ("DefragRunning");
 		}
 	}
 }
